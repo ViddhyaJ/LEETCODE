@@ -1,0 +1,21 @@
+class Solution {
+    public int[] nextGreaterElement(int[] sub, int[] base) {
+        Map<Integer,Integer>baseMap=generateSubMap(base);
+        for(int i=0;i<sub.length;i++){
+            sub[i]=baseMap.getOrDefault(sub[i],-1);
+        }
+        return sub;
+    }
+    private Map<Integer,Integer>generateSubMap(int[] base){
+        Stack<Integer>st=new Stack<>();
+        Map<Integer,Integer>baseMap=new HashMap<>();
+        for(int num:base){
+            while(!st.isEmpty()&&st.peek()<num){
+                int pop=st.pop();
+                baseMap.put(pop,num);
+            }
+            st.push(num);
+        }
+        return baseMap;
+    }
+}
